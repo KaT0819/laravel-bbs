@@ -1,13 +1,17 @@
 clone:
 
-setup: net build install
-	cp .env.example .env
+setup:
+	@make build
+	@make install
+	docker-compose exec app cp .env.example .env
 	docker-compose exec app php artisan key:generate
+	@make open
 
 
 ## dockerコンテナの起動
 up:
 	docker-compose up -d
+
 
 ## dockerコンテナのビルド
 build:
@@ -25,10 +29,6 @@ clean:
 	docker-compose rm -fv --all
 	docker-compose down --rmi local --remove-orphans
 
-## dockerネットワークの作成
-net:
-	docker network create my-network
-
 ## アプリケーションで必要なライブラリをインストール
 install:
 	docker-compose exec app composer install
@@ -36,6 +36,10 @@ install:
 ## DBのマイグレーション
 migrate:
 	docker-compose exec app php artisan migrate
+fresh:
+	docker compose exec app php artisan migrate:fresh --seed
+seed:
+	docker compose exec app php artisan db:seed
 
 ## laravel1のキャッシュクリア
 cache-clear:
@@ -45,19 +49,18 @@ cache-clear:
 	docker-compose exec app php artisan view:clear
 	docker-compose exec app php artisan config:cache
 
-## laravelアプリケーションの起動
-serv:
-	docker-compose exec app php artisan serv
 
-check:
-	wget http://localhost:8000/index.html
+open:
+	open http://localhost
 
 ## laravel_web: workspace container bash
-bash:
+app:
 	docker-compose exec app bash
 
-## mysql: workspace container bash
-db-bash:
+web:
+	docker-compose exec web bash
+
+db:
 	docker-compose exec db bash
 
 heroku-deploy:
