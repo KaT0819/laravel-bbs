@@ -127,3 +127,10 @@ php artisan route:clear
 php artisan view:clear
 ```
 
+### laravel-ide-helperの追加
+``` shell
+# インストール
+composer require --dev barryvdh/laravel-ide-helper
+# ファサードのPHPDocを生成
+php artisan ide-helper:generate
+```
