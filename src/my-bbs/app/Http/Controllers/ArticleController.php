@@ -18,12 +18,14 @@ class ArticleController extends Controller
         $messages['msg1'] = 'いらっしゃいませ';
         $messages['msg2'] = '私のBBSへようこそ';
 
+        $articles = Article::all();
+
         // 配列での渡し方
         // return view('articles.index', ['viewMessages' => $messages]);
         // withを使用した渡し方
         // return view('articles.index')->with('viewMessages', $messages);
         // compactを使用した渡し方
-        return view('articles.index', compact('messages'));
+        return view('articles.index', compact('messages', 'articles'));
     }
 
     /**
