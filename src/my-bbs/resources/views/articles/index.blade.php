@@ -8,7 +8,8 @@
 </head>
 <body>
     <h1>Indexページ</h1>
-    <p>{{ $viewMessages['msg1'] }}</p>
-    <p>{{ $viewMessages['msg2'] }}</p>
+    <p>{{ $messages['msg1'] }}</p>
+    <p>{{ $messages['msg2'] }}</p>
+
 </body>
 </html>
