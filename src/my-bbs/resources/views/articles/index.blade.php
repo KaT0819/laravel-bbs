@@ -13,7 +13,7 @@
 
     <h2>記事一覧</h2>
     @foreach ($articles as $item)
-        <p>{{ $item->content }}</p>
+        <p><a href="{{ route('article.show', ['id' => $item->id]) }}">{{ $item->content }}</a></p>
     @endforeach
 </body>
 </html>

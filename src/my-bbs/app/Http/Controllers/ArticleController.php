@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ArticleController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * 記事一覧表示.
      *
      * @return \Illuminate\Http\Response
      */
@@ -50,14 +50,17 @@ class ArticleController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * 記事詳細表示.
      *
-     * @param  \App\Models\Article  $article
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show(Request $request, $id)
     {
-        //
+        // 特定のIDにマッチする記事を取得
+        $article = Article::find($id);
+        return view('articles.show', compact('article'));
     }
 
     /**
