@@ -7,11 +7,12 @@ services:
     # privileged: true
     expose:
       - 9003
+      - 8000
     environment:
       - XDEBUG_SESSION=ListenforXDebug
       - DB_HOST=${DB_HOST:-db}
       - DB_PORT=${DB_PORT:-3306}
-      - DB_DATABASE=${DB_DATABASE:-laravel}
+      - DB_DATABASE=${DB_DATABASE:-mybbs}
       - DB_USERNAME=${DB_USERNAME:-user}
       - DB_PASSWORD=${DB_PASSWORD:-password}
 
@@ -21,13 +22,14 @@ services:
     # - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
 
   web:
-    image: nginx
     container_name: web
+    build: ./docker/nginx
     ports:
       - 80:80
+      - 443:443
     volumes:
       - ./src/my-bbs:/var/www
-      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
     depends_on:
       - app
 
@@ -47,3 +49,6 @@ services:
       - ./docker/db/sql:/docker-entrypoint-initdb.d
     ports:
       - 3306:3306
+    expose:
+      - 3306
+
