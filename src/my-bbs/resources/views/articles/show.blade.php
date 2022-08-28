@@ -12,6 +12,7 @@
     <h1>記事詳細ページ</h1>
 
     <p>ID: {{ $article->id }}</p>
+    <p>タイトル: {{ $article->title }}</p>
     <p>内容: {{ $article->content }}</p>
 
     <p></p>
