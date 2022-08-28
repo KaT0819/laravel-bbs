@@ -11,6 +11,10 @@
     <p>{{ $messages['msg1'] }}</p>
     <p>{{ $messages['msg2'] }}</p>
 
+    <div>
+        <a href="{{ route('article.create') }}">新規投稿</a>
+    </div>
+
     <h2>記事一覧</h2>
     @foreach ($articles as $item)
         <p>
