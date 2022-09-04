@@ -39,14 +39,22 @@ class ArticleController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 記事情報登録.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $article = new Article();
+        // カラムの値を設定
+        $article->title = $request->title;
+        $article->content = $request->content;
+        // テーブルに登録
+        $article->save();
+
+        // 一覧ページへ遷移
+        return redirect()->route('article.list');
     }
 
     /**
