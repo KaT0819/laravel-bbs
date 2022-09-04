@@ -129,8 +129,21 @@ php artisan view:clear
 
 ### laravel-ide-helperの追加
 ``` shell
+# コンテナに入る
+make app
 # インストール
 composer require --dev barryvdh/laravel-ide-helper
 # ファサードのPHPDocを生成
 php artisan ide-helper:generate
+```
+
+### laravel collectiveの追加
+bladeのFormファサードを利用するため、下記のコマンドでLaravel Collectiveをインストールします。
+
+``` shell
+# コンテナに入る
+make app
+
+# インストール
+composer require laravelcollective/html
 ```
