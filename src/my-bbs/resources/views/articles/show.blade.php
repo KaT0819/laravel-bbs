@@ -16,7 +16,10 @@
     <p>内容: {{ $article->content }}</p>
 
     <p></p>
-    <p><a href="{{ route('article.list') }}">一覧へ戻る</a></p>
+    <p>
+        <a href="{{ route('article.list') }}">一覧へ戻る</a>
+        <a href="{{ route('article.edit', ['id' => $article->id]) }}">編集</a>
+    </p>
 
     <div>
         {!! Form::open(['method' => 'delete', 'route' => ['article.destroy', $article->id]]) !!}

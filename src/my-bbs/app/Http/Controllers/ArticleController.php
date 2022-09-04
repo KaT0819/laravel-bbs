@@ -72,26 +72,41 @@ class ArticleController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 記事編集フォーム表示.
      *
-     * @param  \App\Models\Article  $article
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
+    public function edit(Request $request, $id)
     {
-        //
+        // 特定のIDにマッチする記事を取得
+        $article = Article::find($id);
+        // dd($article);
+        return view('articles.edit', compact('article'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * 記事情報更新.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  string  $id
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(Request $request, $id, Article $article)
     {
-        //
+        // idにマッチする記事情報を取得
+        $article = Article::find($id);
+
+        // カラムの値を設定
+        $article->title = $request->title;
+        $article->content = $request->content;
+        // データを更新
+        $article->save();
+
+        // 詳細ページにリダイレクト
+        return redirect()->route('article.show', ['id' => $article->id]);
     }
 
     /**
