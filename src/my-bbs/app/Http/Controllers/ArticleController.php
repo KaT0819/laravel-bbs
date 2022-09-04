@@ -95,13 +95,19 @@ class ArticleController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 記事削除.
      *
-     * @param  \App\Models\Article  $article
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy(Request $request, $id)
     {
-        //
+        $article = Article::find($id);
+        // データ削除
+        $article->delete();
+
+        // 一覧ページへ遷移
+        return redirect()->route('article.list');
     }
 }
