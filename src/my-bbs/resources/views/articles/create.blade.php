@@ -29,7 +29,7 @@
         </div>
         <div class="form-group mt-3">
             {{ Form::submit('投稿する', ['class' => 'btn btn-primary']) }}
-            <a href="{{ route('article.list') }}">一覧に戻る</a>
+            <a href="{{ route('article.list') }}" class="btn btn-outline-secondary">一覧に戻る</a>
         </div>
 
         {{ Form::close() }}
