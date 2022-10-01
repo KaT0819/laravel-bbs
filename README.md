@@ -1,40 +1,22 @@
 # laravel-bbs
 
 ## 環境構築
-### dockerのインストール
+### Sailによる構築
 
 ### dockerコンテナ起動
 ``` shell
 make init
 ```
 
-### .envファイルの修正
-DB_XXXXを以下のように修正
-
-``` env
-DB_CONNECTION=mysql
-DB_HOST=db
-DB_PORT=3306
-DB_DATABASE=mybbs
-DB_USERNAME=user
-DB_PASSWORD=password
-```
-
-### phpのコンテナへ入る
+### データベースのマイグレーション
 ``` shell
-make app
-
-# コンテナ内の/var/www（ソースのsrc/my-bbsの内容が同期されているディレクトリ）の直下に移動した状態なのでここでartisanコマンドが使えます。
-php artisan -V
-
-Laravel Framework 8.83.22
+./vendor/bin/sail artisan migrate
 ```
-
 
 ## Laravel各種コマンド
 ## Model, Controller作成
 ``` shell
-php artisan make:model Article -m -c -r
+./vendor/bin/sail artisan make:model Article -m -c -r
 ```
 
 - オプションの意味
@@ -59,13 +41,51 @@ php artisan make:model Article -m -c -r
 Laravelプロジェクトを作成する際のコマンド
 本リポジトリをクローンした場合は実行不要
 ``` shell
-composer create-project laravel/laravel:^8.0 my-bbs
-```
-### laravel cache clear
-``` shell
-php artisan cache:clear
-php artisan config:clear
-php artisan route:clear
-php artisan view:clear
+curl -s "https://laravel.build/my-bbs" | bash
+
+cd my-bbs
+# 起動
+./vendor/bin/sail up
 ```
 
+### バックグラウンドでのsailコンテナの起動
+``` shell
+./vendor/bin/sail up -d
+```
+
+### バックグラウンドでのsailコンテナの停止
+``` shell
+./vendor/bin/sail down
+```
+
+### パッケージの追加
+``` shell
+# インストール
+./vendor/bin/sail composer require [パッケージ名]
+# インストール開発環境のみのパッケージ
+./vendor/bin/sail composer require --dev [パッケージ名]
+
+# laravel-ide-helperの追加
+./vendor/bin/sail composer require --dev barryvdh/laravel-ide-helper
+# ファサードのPHPDocを生成
+./vendor/bin/sail artisan ide-helper:generate
+
+# SAILでSSL
+./vendor/bin/sail composer require ryoluo/sail-ssl --dev
+./vendor/bin/sail artisan sail-ssl:install
+./vendor/bin/sail down
+./vendor/bin/sail up
+
+# laravel-ide-helperの追加
+./vendor/bin/sail composer require laravelcollective/html
+
+```
+
+
+### laravel cache clear
+``` shell
+./vendor/bin/sail artisan cache:clear
+./vendor/bin/sail artisan config:clear
+./vendor/bin/sail artisan route:clear
+./vendor/bin/sail artisan view:clear
+```
