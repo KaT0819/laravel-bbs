@@ -48,44 +48,61 @@ cd my-bbs
 ./vendor/bin/sail up
 ```
 
+### sailコマンドを短くするための記述
+sailの各種コマンドを実行する際には、下記のように記述する必要がある。
+
+./vendor/bin/sail コマンド
+
+少々長いため、aliasを指定しておくことで、「./vendor/bin/sail」の部分を「sail」だけで実行可能になる。
+``` shell
+echo "alias sail=\"vendor/bin/sail\"" >> ~/.zshrc
+source .zshrc
+
+sail version
+```
+
+
 ### バックグラウンドでのsailコンテナの起動
 ``` shell
-./vendor/bin/sail up -d
+sail up -d
 ```
 
 ### バックグラウンドでのsailコンテナの停止
 ``` shell
-./vendor/bin/sail down
+sail down
 ```
 
 ### パッケージの追加
 ``` shell
 # インストール
-./vendor/bin/sail composer require [パッケージ名]
+sail composer require [パッケージ名]
 # インストール開発環境のみのパッケージ
-./vendor/bin/sail composer require --dev [パッケージ名]
+sail composer require --dev [パッケージ名]
 
 # laravel-ide-helperの追加
-./vendor/bin/sail composer require --dev barryvdh/laravel-ide-helper
+sail composer require --dev barryvdh/laravel-ide-helper
 # ファサードのPHPDocを生成
-./vendor/bin/sail artisan ide-helper:generate
+sail artisan ide-helper:generate
 
 # SAILでSSL
-./vendor/bin/sail composer require ryoluo/sail-ssl --dev
-./vendor/bin/sail artisan sail-ssl:install
-./vendor/bin/sail down
-./vendor/bin/sail up
+sail up -d
+sail composer require ryoluo/sail-ssl --dev
+sail artisan sail-ssl:install
+sail down
+sail up
+
+# sail artisan sail-ssl:publish
 
 # laravel-ide-helperの追加
-./vendor/bin/sail composer require laravelcollective/html
+sail composer require laravelcollective/html
 
 ```
 
 
 ### laravel cache clear
 ``` shell
-./vendor/bin/sail artisan cache:clear
-./vendor/bin/sail artisan config:clear
-./vendor/bin/sail artisan route:clear
-./vendor/bin/sail artisan view:clear
+sail artisan cache:clear
+sail artisan config:clear
+sail artisan route:clear
+sail artisan view:clear
 ```
