@@ -6,6 +6,7 @@
     <h1>Indexページ</h1>
     <p>{{ $messages['msg1'] }}</p>
     <p>{{ $messages['msg2'] }}</p>
+    @include('articles.search')
 
 
     <h2 class="mb-3">記事一覧</h2>
