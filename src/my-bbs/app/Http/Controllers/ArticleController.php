@@ -12,20 +12,26 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $messages = array();
         $messages['msg1'] = 'いらっしゃいませ';
         $messages['msg2'] = '私のBBSへようこそ';
+        $keyword = '';
 
-        $articles = Article::all();
+        if ($request->filled('keyword')) {
+            $keyword = $request->input('keyword');
+            $articles = Article::where('title', 'like', "%{$keyword}%")->get();
+        } else {
+            $articles = Article::all();
+        }
 
         // 配列での渡し方
         // return view('articles.index', ['viewMessages' => $messages]);
         // withを使用した渡し方
         // return view('articles.index')->with('viewMessages', $messages);
         // compactを使用した渡し方
-        return view('articles.index', compact('messages', 'articles'));
+        return view('articles.index', compact('messages', 'articles', 'keyword'));
     }
 
     /**
