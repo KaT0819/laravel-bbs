@@ -2,6 +2,7 @@ clone:
 
 setup:
 	@make build
+	@make install
 	@make migrate
 	@make open
 
@@ -19,8 +20,12 @@ build:
 kill:
 	./vendor/bin/sail kill
 
+down:
+	./vendor/bin/sail down
+
+
 ## Sailコンテナの再起動
-reload: kill up
+reload: down up
 
 ## docker-clean: docker remove all containers in stack
 clean:
@@ -47,6 +52,12 @@ cache-clear:
 	./vendor/bin/sail artisan view:clear
 	./vendor/bin/sail artisan config:cache
 
+
+## 開発環境のページをブラウザで表示
+open:
+	open http://localhost/articles
+
+
 ## laravel_web: workspace container bash
 app:
 	./vendor/bin/sail bash
@@ -56,3 +67,4 @@ web:
 
 db:
 	./vendor/bin/sail mysql
+
